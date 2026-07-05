@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D-FOOD | Receiver Dashboard</title>
+    <style>
+        :root{--maroon:#6B1F1F;--brown:#8B5E3C;--cream:#FFF8F0;--gold:#C9A227;--white:#fff;--text:#2d201c;--muted:#6f5849}
+        *{box-sizing:border-box;font-family:Inter,Segoe UI,sans-serif} body{margin:0;background:linear-gradient(135deg,#fff8f0,#f5e3c3);color:var(--text)}
+        .navbar{display:flex;justify-content:space-between;align-items:center;padding:16px 24px;background:rgba(255,255,255,.95);backdrop-filter:blur(10px)}
+        .logo{font-weight:800;color:var(--maroon)}.nav-links a{color:var(--brown);font-weight:700;margin-left:10px;text-decoration:none}
+        .wrap{max-width:1200px;margin:0 auto;padding:24px}.card{background:var(--white);border-radius:24px;padding:20px;box-shadow:0 10px 30px rgba(0,0,0,.06)}
+        .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}.item{background:#fff8f0;border:1px solid #ecd4b7;border-radius:18px;padding:16px}.item img{width:100%;height:180px;object-fit:cover;border-radius:12px;margin-bottom:10px}.btn{display:inline-block;width:100%;padding:10px 12px;border:none;border-radius:999px;background:linear-gradient(135deg,var(--maroon),var(--brown));color:white;font-weight:700;cursor:pointer;margin-top:8px;text-align:center;text-decoration:none}
+        .muted{color:var(--muted)}.status{display:inline-block;padding:5px 10px;border-radius:999px;font-size:.78rem;font-weight:700;margin-top:8px}.status-pending{background:#fff2c7;color:#8a6500}.status-approved{background:#dff6e8;color:#2f8f55}.status-rejected{background:#fce2e2;color:#a13c3c}.status-completed{background:#e8f4ff;color:#2b5e89}
+        .request-card{padding:12px;border-radius:14px;background:#fff8f0;border:1px solid #ecd4b7;margin-top:10px}
+        .alert{padding:12px 14px;border-radius:14px;background:#fce7d8;color:#8a4b1b;margin-bottom:14px;font-weight:700}
+    </style>
+</head>
+<body>
+<nav class="navbar">
+    <div class="logo">D-FOOD</div>
+    <div class="nav-links">
+        <a href="/profile">Profile</a>
+        <a href="/logout">Logout</a>
+    </div>
+</nav>
+<div class="wrap">
+    <div class="card">
+        <h2>Receiver Food Request Dashboard</h2>
+        <p class="muted">Submit one request per available donation and track its approval status here.</p>
+        {% if msg %}<div class="alert">{{ msg }}</div>{% endif %}
+        <div class="grid" style="margin-top:16px">
+            {% for book in books %}
+            <div class="item">
+                <img src="data:image/jpg;base64,{{ book[-1] }}">
+                <p><strong>{{ book[1] }}</strong></p>
+                <p class="muted">Quantity: {{ book[2] }}</p>
+                <p class="muted">Expiry: {{ book[3] }}</p>
+                <p class="muted">Category: {{ book[4] }}</p>
+                <p class="muted">Pickup: {{ book[5] }}</p>
+                <a class="btn" href="/Request/{{book[0]}}">Request Food</a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="card" style="margin-top:18px">
+        <h3>Your Request Status</h3>
+        {% if my_requests %}
+            {% for item in my_requests %}
+            <div class="request-card">
+                <div style="display:flex;justify-content:space-between;gap:12px;align-items:flex-start;">
+                    <div>
+                        <strong>{{ item['food_name'] }}</strong>
+                        <div class="muted">Donor: {{ item['donor_name'] }}</div>
+                        <div class="muted">Quantity: {{ item['quantity'] }}</div>
+                        <div class="muted">Pickup Address: {{ item['pickup_address'] or '-' }}</div>
+                        <div class="muted">Request Date: {{ item['request_date'] or item['created_at'] or '-' }}</div>
+                    </div>
+                    <span class="status status-{{ item['request_status'] or 'pending' }}">{{ (item['request_status'] or 'pending')|title }}</span>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="request-card">No requests yet. Choose a donation to begin.</div>
+        {% endif %}
+    </div>
+</div>
+<script>
+    if('{{msg}}'){
+        console.log('{{msg}}');
+    }
+</script>
+</body>
+</html>

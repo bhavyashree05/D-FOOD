@@ -1,1 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D-FOOD | Donate Food. Deliver Hope.</title>
+    
+    <style>
+        :root {
+            --maroon: #6B1F1F;
+            --brown: #8B5E3C;
+            --cream: #FFF8F0;
+            --gold: #C9A227;
+            --white: #ffffff;
+            --text: #2d211d;
+            --muted: #6f5849;
+            --shadow: 0 20px 45px rgba(107, 31, 31, 0.12);
+        }
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { margin: 0; font-family: Inter, 'Segoe UI', sans-serif; background: var(--cream); color: var(--text); }
+        a { text-decoration: none; color: inherit; }
+        header { position: sticky; top: 0; z-index: 100; backdrop-filter: blur(16px); background: rgba(255,248,240,0.92); border-bottom: 1px solid rgba(107,31,31,0.08); }
+        .nav-container { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 18px 24px; }
+        .brand { display:flex; align-items:center; gap:12px; font-weight:800; font-size:1.2rem; color:var(--maroon); }
+        .brand-dot { width:12px; height:12px; border-radius:50%; background:linear-gradient(135deg,var(--gold),var(--maroon)); }
+        .nav-links { display:flex; align-items:center; gap:18px; color:var(--muted); font-weight:600; }
+        .hero { max-width:1200px; margin:0 auto; display:grid; grid-template-columns: 1.1fr 0.9fr; gap:36px; align-items:center; padding:70px 24px 40px; }
+        .hero-copy h1 { font-size: clamp(2.6rem, 4.4vw, 4.2rem); line-height:1.05; margin:8px 0 12px; color:var(--maroon); }
+        .hero-copy .eyebrow { display:inline-block; padding:8px 12px; border-radius:999px; background:#f8ebd8; color:var(--brown); font-weight:700; letter-spacing:0.04em; }
+        .hero-copy p { font-size:1.03rem; line-height:1.8; color:var(--muted); max-width:620px; }
+        .hero-buttons { display:flex; flex-wrap:wrap; gap:14px; margin-top:26px; }
+        .hero-buttons a { display:inline-flex; align-items:center; justify-content:center; padding:13px 20px; border-radius:999px; font-weight:700; transition:transform 0.25s ease, box-shadow 0.25s ease; }
+        .btn-primary { background: linear-gradient(135deg, var(--maroon), var(--brown)); color:white; box-shadow:0 12px 24px rgba(107,31,31,0.18); }
+        .btn-secondary { background: var(--white); color:var(--maroon); border:1px solid rgba(107,31,31,0.12); }
+        .hero-buttons a:hover { transform:translateY(-3px); }
+        .hero-card { background:linear-gradient(135deg, rgba(255,248,240,0.95), rgba(255,255,255,0.98)); border:1px solid rgba(107,31,31,0.08); border-radius:28px; padding:24px; box-shadow:var(--shadow); }
+        .hero-card ul { padding-left:18px; color:var(--muted); line-height:1.8; }
+        .section { max-width:1200px; margin:0 auto; padding:40px 24px; }
+        .section h3 { text-align:center; font-size:2rem; color:var(--maroon); margin-bottom:10px; }
+        .section p.description { text-align:center; max-width:720px; margin:0 auto 28px; color:var(--muted); line-height:1.8; }
+        .grid { display:grid; gap:20px; grid-template-columns:repeat(3, minmax(220px,1fr)); }
+        .card { background:var(--white); border:1px solid rgba(107,31,31,0.08); border-radius:22px; padding:24px; box-shadow:var(--shadow); transition:transform 0.25s ease; }
+        .card:hover { transform:translateY(-6px); }
+        .card h4 { margin:10px 0; color:var(--maroon); }
+        .card p { color:var(--muted); line-height:1.7; }
+        .stats { display:grid; grid-template-columns:repeat(4, minmax(180px,1fr)); gap:16px; margin-top:24px; }
+        .stat { background:var(--white); border-radius:20px; padding:18px; text-align:center; box-shadow:var(--shadow); }
+        .stat strong { display:block; font-size:2rem; color:var(--maroon); }
+        .faq-item { background:var(--white); border-radius:18px; padding:18px 20px; margin-bottom:12px; box-shadow:var(--shadow); }
+        .footer { padding:32px 24px 24px; background:#f7eadb; margin-top:24px; }
+        .footer-inner { max-width:1200px; margin:0 auto; display:flex; justify-content:space-between; gap:20px; flex-wrap:wrap; color:var(--muted); }
+        .hero-logo{ display:flex;
+    align-items:center;
+    gap:25px;
+    margin:15px 0 20px;
+}
 
+.logo-icon{
+    position:relative;
+    width:90px;
+    height:90px;
+}
+
+.logo-icon .fa-hands-holding{
+    font-size:72px;
+    color:#8b2e2e;
+    position:absolute;
+    left:0;
+    top:0;
+}
+
+.logo-icon .food{
+    position:absolute;
+    left:20px;
+    top:16px;
+    font-size:38px;
+    color:#d99036;
+}
+
+.tagline{
+    display:block;
+    color:#8B5E3C;
+    font-size:14px;
+    font-weight:700;
+    letter-spacing:1px;
+    margin-bottom:5px;
+    text-transform:uppercase;
+}
+
+.brand-name{
+    margin:0;
+    font-family:"Brush Script MT",cursive;
+    font-size:82px;
+    font-style:italic;
+    color:#7a1f1f;
+    line-height:1;
+}
+        @media (max-width:900px){ .hero,.grid,.stats{grid-template-columns:1fr; } }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="nav-container">
+            <div class="hero-logo">
+                <div class="logo-icon">
+                    <i class="fas fa-hands-holding"></i>
+                    <i class="fas fa-utensils food"></i>
+                </div>
+                <div class="brand-name">D-FOOD</div>
+            </div>
+            <div class="nav-links">
+                <a href="#about">About</a>
+                <a href="#how-it-works">How It Works</a>
+                <a href="#faq">FAQ</a>
+                <a href="/admin">Admin Login</a>
+            </div>
+        </div>
+    </header>
+    <main>
+        <section class="hero">
+            <div class="hero-copy">
+                <div class="hero-logo">
+    <img src="{{ url_for('static', filename='imagess/d-food_logo1.png') }}" alt="D-FOOD Logo">
+
+    <div class="hero-title">
+        <span class="tagline">Donate Food. Deliver Hope.</span>
+
+        <h1 class="brand-name">
+            D-FOOD
+        </h1>
+    </div>
+</div>
+                <p>Connecting generous donors with people in need through a secure, transparent and efficient food donation platform.</p>
+                <div class="hero-buttons">
+                    <a class="btn-primary" href="/dsignup">Donate Food</a>
+                    <a class="btn-secondary" href="/rsignup">Request Food</a>
+                    <a class="btn-secondary" href="/admin">Admin Login</a>
+                </div>
+            </div>
+            <div class="hero-card">
+                <h3 style="color:var(--maroon);margin-top:0;">Why D-FOOD?</h3>
+                <ul>
+                    <li>Secure donor and receiver management</li>
+                    <li>Transparent food request workflow</li>
+                    <li>Fast approval and delivery tracking</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="section" id="about">
+            <h3>About D-FOOD</h3>
+            <p class="description">D-FOOD is a professional food donation platform that helps NGOs, donors and receivers collaborate with trust, clarity and accountability.</p>
+            <div class="grid">
+                <div class="card"><h4>Mission</h4><p>Reduce food waste while ensuring nutritious meals reach the people who need them most.</p></div>
+                <div class="card"><h4>Vision</h4><p>Create a connected ecosystem where no one goes hungry and every donation is handled responsibly.</p></div>
+                <div class="card"><h4>Impact</h4><p>From daily meals to reliable support, D-FOOD helps turn generosity into measurable impact.</p></div>
+            </div>
+        </section>
+
+        <section class="section" id="how-it-works">
+            <h3>How It Works</h3>
+            <div class="grid">
+                <div class="card"><h4>1. Register</h4><p>Donors and receivers create their profile and get verified by the admin.</p></div>
+                <div class="card"><h4>2. Share or Request</h4><p>Donors list food items and receivers request the food they need.</p></div>
+                <div class="card"><h4>3. Track Delivery</h4><p>Admins approve, complete and record delivery progress in a transparent workflow.</p></div>
+            </div>
+            <div class="stats">
+                <div class="stat"><strong>{{ total_donors }}</strong><span>Registered Donors</span></div>
+                <div class="stat"><strong>{{ total_receivers }}</strong><span>Registered Receivers</span></div>
+                <div class="stat"><strong>{{ total_donations }}</strong><span>Food Donations</span></div>
+                <div class="stat"><strong>{{ total_meals }}</strong><span>Meals Supported</span></div>
+            </div>
+        </section>
+
+        <section class="section" id="faq">
+            <h3>Frequently Asked Questions</h3>
+            <div class="faq-item"><strong>How does approval work?</strong><p>Admin review ensures that only verified donor and receiver accounts participate in the platform.</p></div>
+            <div class="faq-item"><strong>Can I request food instantly?</strong><p>Yes. Once approved, receivers can submit food requests directly from available donations.</p></div>
+            <div class="faq-item"><strong>Is the platform secure?</strong><p>Yes. D-FOOD uses secure session handling and parameterized database operations.</p></div>
+        </section>
+    </main>
+    
+</body>
+</html> 
+</style>
+</head>
+<body>
+    <header>
+        <div class="nav-container">
+            
+            
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-copy">
+                <span>Join our food-sharing movement</span>
+                <h1>Welcome to Food Donation 😊</h1>
+                <p>Sharing food is sharing happiness. Together we can reduce waste, support vulnerable families, and create a kinder community—one meal at a time.</p>
+                
+                <div class="quote-card">
+                    <p>“No one has ever become poor by giving.”</p>
+                    <span>— Anne Frank</span>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="illustration">
+                    
+                    <div class="illustration-overlay">
+                        <h2>Feed Hope.
+                        Nourish change.</h2>
+                        <p>A modern donation platform built for donors, receivers, and caring communities.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="features">
+            <h3>Why Food Donation Matters</h3>
+            <p class="description">Our platform is designed to connect donors and receivers with compassion, simplicity, and safety. Every contribution helps reduce waste and improve lives.</p>
+            <div class="features">
+                <div class="feature-card">
+                    <h4>Reduce Food Waste</h4>
+                    <p>Save fresh food from going to waste by bringing it directly to people who need it most.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>Help Needy People</h4>
+                    <p>Support families, shelters, and communities through simple donation and request workflows.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>Fast & Easy Donations</h4>
+                    <p>Quickly sign up and start donating or requesting food through a friendly interface.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="stats">
+            <h3>Community Impact</h3>
+            <p class="description">See how our platform is making a real-world difference with verified donors, receivers, and donations.</p>
+            <div class="stat-grid">
+                <div class="stat-card">
+                    <h4>Total Donors</h4>
+                    <strong data-target="{{ total_donors }}">0</strong>
+                    <span>Generous people supporting the cause.</span>
+                </div>
+                <div class="stat-card">
+                    <h4>Total Receivers</h4>
+                    <strong data-target="{{ total_receivers }}">0</strong>
+                    <span>Families and communities empowered by support.</span>
+                </div>
+                <div class="stat-card">
+                    <h4>Total Donations</h4>
+                    <strong data-target="{{ total_donations }}">0</strong>
+                    <span>Meals pledged through our food donation network.</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="about">
+            <h3>About Food Donation</h3>
+            <p class="description">This platform brings together donors, receivers, and administrators under a single mission: to make food donations safe, impactful, and easy. We follow a transparent workflow to ensure trust, approval, and quick delivery.</p>
+            <div class="about-grid">
+                <div class="about-card">
+                    <h4>Simple Donation Process</h4>
+                    <p>Donors can upload food details quickly, and our approval workflow keeps the system secure and transparent.</p>
+                </div>
+                <div class="about-card">
+                    <h4>Smart Request Flow</h4>
+                    <p>Receivers can request food with confidence, and admins can approve requests to maintain fairness.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <h4>Food Donation Management</h4>
+                <p>Connecting food donors and receivers with ease, empathy, and efficiency.</p>
+                <div class="social-icons">
+                    <a href="#" aria-label="Facebook">F</a>
+                    <a href="#" aria-label="Twitter">T</a>
+                    <a href="#" aria-label="Instagram">I</a>
+                </div>
+            </div>
+            <div class="footer-contact">
+                <p><strong>Contact</strong></p>
+                <p>support@fooddonation.org</p>
+                <p>+1 (555) 123-4567</p>
+                <p>123 Giving Street, Kindness City</p>
+            </div>
+        </div>
+        <div class="footer-note">© 2026 Food Donation Management. All rights reserved.</div>
+    </footer>
+
+    <script>
+        const counters = document.querySelectorAll('.stat-card strong');
+        const speed = 70;
+
+        counters.forEach(counter => {
+            const updateCount = () => {
+                const target = +counter.getAttribute('data-target');
+                const count = +counter.innerText;
+                const increment = target / speed;
+
+                if (count < target) {
+                    counter.innerText = Math.ceil(count + increment);
+                    requestAnimationFrame(updateCount);
+                } else {
+                    counter.innerText = target;
+                }
+            };
+
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        updateCount();
+                        observer.unobserve(counter);
+                    }
+                });
+            }, {
+                threshold: 0.5
+            });
+            observer.observe(counter);
+        });
+    </script>
+</body>
+</html>
