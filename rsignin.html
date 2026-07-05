@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D-FOOD | Receiver Sign In</title>
+    <style>
+        :root{--maroon:#6B1F1F;--brown:#8B5E3C;--cream:#FFF8F0;--gold:#C9A227;--white:#fff;--text:#2b221d;--muted:#6f5849}
+        *{box-sizing:border-box;font-family:Inter,Segoe UI,sans-serif} body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#fff8f0 0%,#f6e3c4 100%);color:var(--text)}
+        .page{width:min(940px,94vw);display:grid;grid-template-columns:1.1fr 0.9fr;gap:20px;align-items:center}
+        .panel{background:rgba(255,255,255,0.68);backdrop-filter:blur(16px);border:1px solid rgba(107,31,31,0.14);box-shadow:0 16px 40px rgba(107,31,31,0.15);border-radius:26px;padding:28px}
+        .brand{font-size:1.4rem;font-weight:800;color:var(--maroon);margin-bottom:8px}.muted{color:var(--muted);line-height:1.7}.field{display:flex;flex-direction:column;gap:6px;margin-top:14px}.field input{padding:12px 14px;border:1px solid #e2c6a0;border-radius:12px;background:rgba(255,248,240,0.95)}
+        .row{display:flex;gap:10px;align-items:center;justify-content:space-between;margin-top:10px;font-size:.92rem}.btn{margin-top:14px;width:100%;padding:12px 14px;border:none;border-radius:999px;background:linear-gradient(135deg,var(--maroon),var(--brown));color:white;font-weight:700;cursor:pointer}
+        .btn:hover{opacity:.95}.link{color:var(--maroon);font-weight:700;text-decoration:none}
+        .hero{padding:24px}.hero h1{font-size:2rem;color:var(--maroon)}
+        @media (max-width:780px){.page{grid-template-columns:1fr}}
+    </style>
+</head>
+<body>
+    <div class="page">
+        <div class="panel hero">
+            <div class="brand">D-FOOD</div>
+            <h1>Receiver Sign In</h1>
+            <p class="muted">Access approved food requests and discover available donations through a safe, efficient portal.</p>
+        </div>
+        <div class="panel">
+            <form action="/rsignin" method="post">
+                <div class="field"><label>Email</label><input type="email" name="email" placeholder="Enter your email" required></div>
+                <div class="field"><label>Password</label><input type="password" id="password" name="password" placeholder="Enter your password" required></div>
+                <div class="row"><label><input type="checkbox"> Remember me</label><a class="link" href="#">Forgot password?</a></div>
+                <button class="btn" type="submit">Sign In</button>
+            </form>
+            <p class="muted" style="margin-top:12px">Need an account? <a class="link" href="/rsignup">Create one</a></p>
+        </div>
+    </div>
+    <script>if('{{msg}}'){alert('{{msg}}');}</script>
+</body>
+</html>

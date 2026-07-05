@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D-FOOD | Admin Login</title>
+    <style>
+        :root{--maroon:#6B1F1F;--brown:#8B5E3C;--cream:#FFF8F0;--gold:#C9A227;--white:#fff;--text:#2b221d;--muted:#6f5849}
+        *{box-sizing:border-box;font-family:Inter,Segoe UI,sans-serif} body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#fff8f0 0%,#f6e3c4 100%)}
+        .login-box{width:min(420px,92vw);background:rgba(255,255,255,0.76);backdrop-filter:blur(14px);border:1px solid rgba(107,31,31,0.14);box-shadow:0 18px 40px rgba(107,31,31,0.14);border-radius:24px;padding:28px}
+        .title{font-size:1.6rem;font-weight:800;color:var(--maroon);margin-bottom:8px} .sub{color:var(--muted);margin-bottom:18px}
+        .field{display:flex;flex-direction:column;gap:6px;margin-top:12px}.field input{padding:12px 14px;border:1px solid #e2c6a0;border-radius:12px;background:rgba(255,248,240,0.95)}
+        button{margin-top:16px;width:100%;padding:12px 14px;border:none;border-radius:999px;background:linear-gradient(135deg,var(--maroon),var(--brown));color:white;font-weight:700;cursor:pointer}
+    </style>
+</head>
+<body>
+    <div class="login-box">
+        <div class="title">D-FOOD Admin</div>
+        <div class="sub">Secure administrator access for donation management.</div>
+        <form method="post">
+            <div class="field"><label>Username</label><input type="text" name="username" placeholder="Enter Username" required></div>
+            <div class="field"><label>Password</label><input type="password" name="password" placeholder="Enter Password" required></div>
+            <button type="submit">Login</button>
+        </form>
+    </div>
+    {% if msg %}<script>alert("{{msg}}");</script>{% endif %}
+</body>
+</html>
