@@ -1,177 +1,324 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Feeding Humanity</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
-        body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background-image: url("https://img.freepik.com/free-photo/top-view-food-donation-box_23-2148733850.jpg?t=st=1745575805~exp=1745579405~hmac=d23ac5614de4ca9f09de673d37971db626bc77336482c999e84663d6e4d3af64&w=996");
-            background-size: 100% 100vh;
-            background-attachment: fixed;
-        }
-        .navbar {
-            width: 100%;
-            background: #fff;
-            padding: 15px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-        .navbar .logo {
-            font-size: 20px;
-            font-weight: bold;
-            color: #333;
-        }
-        .navbar .nav-links {
-            display: flex;
-            gap: 15px;
-        }
-        .navbar .nav-links a {
-            text-decoration: none;
-            color: #667eea;
-            font-weight: bold;
-        }
-        .navbar .nav-links a:hover {
-            color: #5642a6;
-        }
-        .container {
-            background: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 400px;
-            text-align: center;
-            margin-top: 50px;
-        }
-        h2 {
-            margin-bottom: 20px;
-            color: #333;
-        }
-        .input-group {
-            margin-bottom: 15px;
-            text-align: left;
-        }
-        .input-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-        .input-group input, .input-group select {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            outline: none;
-        }
-        .btn {
-            width: 100%;
-            background: #667eea;
-            color: white;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        .btn:hover {
-            background: #5642a6;
-        }
-        .book-list {
-            margin-top: 30px;
-            width: 100%;
-            max-width: 600px;
-            background: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        .book {
-            padding: 10px;
-            border-bottom: 1px solid #ddd;
-        }
-        .book:last-child {
-            border-bottom: none;
-        }
-        @media (max-width: 480px) {
-            .container, .book-list {
-                padding: 15px;
-            }
-            .navbar {
-                flex-direction: column;
-                align-items: center;
-            }
-            .navbar .nav-links {
-                margin-top: 10px;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Upload Food | D-FOOD</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+    :root {
+        --maroon: #6B1F1F;
+        --maroon-dark: #4E1515;
+        --brown: #8B5E3C;
+        --cream: #FFF8F0;
+        --gold: #C9A227;
+        --white: #ffffff;
+        --text: #2d211d;
+        --muted: #6f5849;
+        --border: rgba(107,31,31,0.10);
+        --shadow: 0 20px 45px rgba(107,31,31,0.12);
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: Inter, 'Segoe UI', sans-serif; background: var(--cream); color: var(--text); }
+    a { text-decoration: none; color: inherit; }
+
+    .layout { display: flex; min-height: 100vh; }
+
+    /* ---------- Sidebar ---------- */
+    .sidebar {
+        width: 250px;
+        flex-shrink: 0;
+        background: linear-gradient(180deg, var(--maroon) 0%, var(--maroon-dark) 100%);
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        padding: 28px 20px;
+    }
+    .side-logo { display:flex; flex-direction:column; align-items:center; text-align:center; margin-bottom: 30px; }
+    .side-logo img { width: 54px; height: 54px; object-fit: contain; margin-bottom: 8px; }
+    .side-logo .name { font-weight: 800; font-size: 1.3rem; letter-spacing: 0.5px; color: var(--gold); }
+    .side-logo .tag { font-size: 0.68rem; opacity: 0.85; letter-spacing: 0.06em; margin-top: 2px; }
+
+    .side-nav { display: flex; flex-direction: column; gap: 6px; margin-top: 8px; }
+    .side-nav a {
+        display: flex; align-items: center; gap: 12px;
+        padding: 12px 14px; border-radius: 12px;
+        font-weight: 600; font-size: 0.95rem;
+        color: rgba(255,255,255,0.9);
+        transition: background 0.2s ease, transform 0.2s ease;
+    }
+    .side-nav a i { width: 18px; text-align: center; opacity: 0.9; }
+    .side-nav a:hover { background: rgba(255,255,255,0.08); transform: translateX(2px); }
+    .side-nav a.active { background: var(--white); color: var(--maroon); box-shadow: 0 8px 18px rgba(0,0,0,0.18); }
+    .side-nav a.active i { color: var(--maroon); }
+
+    .side-footer { margin-top: auto; }
+    .thanks-card {
+        border: 1px solid rgba(255,255,255,0.18);
+        border-radius: 18px;
+        padding: 20px 16px;
+        text-align: center;
+        margin-top: 20px;
+    }
+    .thanks-card i.fa-hands-holding { font-size: 1.6rem; color: var(--gold); margin-bottom: 10px; }
+    .thanks-card p { margin: 0; font-size: 0.85rem; line-height: 1.6; color: rgba(255,255,255,0.92); }
+    .thanks-card .heart { color: var(--gold); margin-top: 10px; display:block; }
+
+    /* ---------- Main ---------- */
+    .main { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+    .topbar {
+        display: flex; align-items: center; justify-content: space-between;
+        padding: 22px 34px;
+        background: rgba(255,248,240,0.9);
+        border-bottom: 1px solid var(--border);
+    }
+    .topbar h2 { margin: 0; color: var(--maroon); font-size: 1.15rem; }
+    .topbar p { margin: 2px 0 0; color: var(--muted); font-size: 0.9rem; }
+    .avatar {
+        width: 42px; height: 42px; border-radius: 50%;
+        background: var(--maroon); color: #fff;
+        display: flex; align-items: center; justify-content: center;
+        box-shadow: var(--shadow);
+    }
+
+    .content { padding: 34px; flex: 1; }
+
+    .msg-banner {
+        max-width: 1000px; margin: 0 auto 20px;
+        background: #f6ecd9; border: 1px solid var(--border);
+        color: var(--maroon); font-weight: 600;
+        padding: 14px 18px; border-radius: 14px;
+    }
+
+    .upload-card {
+        position: relative;
+        max-width: 1100px; margin: 0 auto;
+        background: var(--white);
+        border: 1px solid var(--border);
+        border-radius: 26px;
+        box-shadow: var(--shadow);
+        padding: 34px 40px 40px;
+        overflow: hidden;
+    }
+    .dots-deco {
+        position: absolute; top: 24px; right: 30px;
+        width: 130px; height: 90px;
+        background-image: radial-gradient(var(--gold) 1.6px, transparent 1.6px);
+        background-size: 14px 14px;
+        opacity: 0.35;
+        pointer-events: none;
+    }
+    .card-head { display: flex; align-items: center; gap: 18px; }
+    .card-icon {
+        width: 62px; height: 62px; border-radius: 50%;
+        background: var(--maroon); color: var(--gold);
+        display: flex; align-items: center; justify-content: center;
+        font-size: 1.4rem; flex-shrink: 0;
+    }
+    .card-head h1 { margin: 0; font-size: 1.6rem; color: var(--maroon); }
+    .card-head p { margin: 4px 0 0; color: var(--muted); }
+
+    .divider { display: flex; align-items: center; gap: 14px; margin: 26px 0 30px; color: var(--gold); }
+    .divider::before, .divider::after { content:""; flex:1; height:1px; background: linear-gradient(90deg, transparent, rgba(107,31,31,0.25), transparent); }
+
+    .form-layout { display: grid; grid-template-columns: 1fr 300px; gap: 34px; }
+    .field-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 24px; }
+    .field { display: flex; flex-direction: column; gap: 8px; }
+    .field.full { grid-column: 1 / -1; }
+    .field label { font-weight: 700; font-size: 0.88rem; color: var(--text); }
+    .input-wrap { display: flex; align-items: center; border: 1px solid var(--border); border-radius: 12px; background: #fffdf9; overflow: hidden; transition: border-color 0.2s ease, box-shadow 0.2s ease; }
+    .input-wrap:focus-within { border-color: var(--maroon); box-shadow: 0 0 0 3px rgba(107,31,31,0.08); }
+    .input-icon { width: 42px; height: 42px; flex-shrink: 0; background: var(--maroon); color: var(--gold); display: flex; align-items: center; justify-content: center; font-size: 0.95rem; }
+    .input-wrap input, .input-wrap select { border: none; outline: none; background: transparent; padding: 11px 12px; font-size: 0.95rem; width: 100%; color: var(--text); font-family: inherit; }
+    .input-wrap select { appearance: none; cursor: pointer; }
+    .input-wrap input::placeholder { color: #b6a598; }
+    .input-wrap input[readonly] { color: var(--muted); }
+
+    .image-col label.title { font-weight: 700; font-size: 0.88rem; display: block; margin-bottom: 8px; }
+    .dropzone {
+        height: 100%; min-height: 300px;
+        border: 2px dashed rgba(107,31,31,0.35);
+        border-radius: 18px;
+        display: flex; flex-direction: column; align-items: center; justify-content: center;
+        text-align: center; gap: 6px; padding: 20px;
+        background: #fdf7f0;
+        cursor: pointer; position: relative;
+        transition: border-color 0.2s ease, background 0.2s ease;
+    }
+    .dropzone:hover { border-color: var(--maroon); background: #fbeee1; }
+    .dropzone i.fa-cloud-upload-alt { font-size: 2.1rem; color: var(--maroon); margin-bottom: 6px; }
+    .dropzone strong { color: var(--maroon); font-size: 0.98rem; }
+    .dropzone span { color: var(--muted); font-size: 0.85rem; }
+    .dropzone small { color: #b6a598; font-size: 0.78rem; margin-top: 4px; }
+    .dropzone input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+    .dropzone.has-file strong { color: #3a7d3a; }
+
+    .submit-btn {
+        margin-top: 32px; width: 100%; border: none; cursor: pointer;
+        background: linear-gradient(120deg, var(--maroon-dark), var(--maroon) 55%, #8a2a2a);
+        color: #fff; font-weight: 700; font-size: 1.02rem;
+        padding: 17px; border-radius: 14px;
+        display: flex; align-items: center; justify-content: center; gap: 10px;
+        box-shadow: 0 16px 30px rgba(107,31,31,0.28);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 20px 36px rgba(107,31,31,0.34); }
+
+    @media (max-width: 900px) {
+        .layout { flex-direction: column; }
+        .sidebar { width: 100%; flex-direction: row; flex-wrap: wrap; align-items: center; }
+        .side-nav { flex-direction: row; flex-wrap: wrap; }
+        .side-footer { display: none; }
+        .form-layout { grid-template-columns: 1fr; }
+        .field-grid { grid-template-columns: 1fr; }
+        .content { padding: 20px; }
+        .upload-card { padding: 26px 20px; }
+    }
+</style>
 </head>
 <body>
-    <nav class="navbar">
-        <div class="logo">Feeding Humanity</div>
-        <div class="nav-links">
-            <a href="/upload">upload</a>
-            <a href="/booklist">Donations</a>
-            <a href="/">Logout</a>
+<div class="layout">
+    <aside class="sidebar">
+        <div class="side-logo">
+            <img src="{{ url_for('static', filename='imagess/d-food_logo1.png') }}" alt="D-FOOD Logo">
+            <div class="name">D-FOOD</div>
+            <div class="tag">DONATE FOOD, DELIVER HOPE</div>
         </div>
-    </nav>
-    
-    <!-- Admin Side: Upload Book -->
-    <div class="container">
-        <h2>Upload Food Details</h2>
-        <form action="/upload" method="post" enctype="multipart/form-data">
-            <!-- Added Donor Name -->
-            <div class="input-group">
-                <label for="donor-name">Donor Name</label>
-                <input type="text" id="donor-name" name="donor_name" placeholder="Enter donor name" required>
+        <nav class="side-nav">
+            <a href="/upload" class="active"><i class="fas fa-circle-plus"></i> Upload Food</a>
+            <a href="/booklist"><i class="fas fa-box"></i> Donations</a>
+            <a href="/profile"><i class="fas fa-user"></i> Profile</a>
+            <a href="/logout"><i class="fas fa-power-off"></i> Logout</a>
+        </nav>
+        <div class="side-footer">
+            <div class="thanks-card">
+                <i class="fas fa-hands-holding"></i>
+                <p>Thank you for spreading kindness and making a difference!</p>
+                <i class="fas fa-heart heart"></i>
             </div>
+        </div>
+    </aside>
 
-            <div class="input-group">
-                <label for="food-name">Food Name</label>
-                <input type="text" id="food-name" name="food_name" placeholder="Enter food name" required>
+    <div class="main">
+        <div class="topbar">
+            <div>
+                <h2>Hello, {{ user_name }}</h2>
+                <p>Welcome back to D-FOOD</p>
             </div>
-            <div class="input-group">
-                <label for="quantity">Quantity (kg/liters)</label>
-                <input type="text" id="quantity" name="quantity" placeholder="Enter quantity" required>
+            <div class="avatar"><i class="fas fa-user"></i></div>
+        </div>
+
+        <div class="content">
+            {% if msg %}
+            <div class="msg-banner">{{ msg }}</div>
+            {% endif %}
+
+            <div class="upload-card">
+                <div class="dots-deco"></div>
+                <div class="card-head">
+                    <div class="card-icon"><i class="fas fa-bowl-food"></i></div>
+                    <div>
+                        <h1>Upload Food Donation</h1>
+                        <p>Share your extra food and help someone in need.</p>
+                    </div>
+                </div>
+
+                <div class="divider"><i class="fas fa-heart"></i></div>
+
+                <form action="/upload" method="post" enctype="multipart/form-data">
+                    <div class="form-layout">
+                        <div class="field-grid">
+                            <div class="field">
+                                <label for="food-name">Food Name</label>
+                                <div class="input-wrap">
+                                    <span class="input-icon"><i class="fas fa-utensils"></i></span>
+                                    <input type="text" id="food-name" name="food_name" placeholder="Enter food name" required>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label for="quantity">Quantity</label>
+                                <div class="input-wrap">
+                                    <span class="input-icon"><i class="fas fa-weight-hanging"></i></span>
+                                    <input type="text" id="quantity" name="quantity" placeholder="e.g. 5 kg / 10 packs" required>
+                                </div>
+                            </div>
+
+                            <div class="field">
+                                <label for="donation-date">Expiry Date</label>
+                                <div class="input-wrap">
+                                    <span class="input-icon"><i class="fas fa-calendar-days"></i></span>
+                                    <input type="date" id="donation-date" name="expiry_date" required>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label for="category">Category</label>
+                                <div class="input-wrap">
+                                    <span class="input-icon"><i class="fas fa-list"></i></span>
+                                    <select id="category" name="category" required>
+                                        <option value="" disabled selected>Select category</option>
+                                        <option value="Vegetarian">Vegetarian</option>
+                                        <option value="Non-Vegetarian">Non-Vegetarian</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="field full">
+                                <label for="location">Pickup Location</label>
+                                <div class="input-wrap">
+                                    <span class="input-icon"><i class="fas fa-location-dot"></i></span>
+                                    <input type="text" id="location" name="pickup_location" placeholder="Enter pickup location" required>
+                                </div>
+                            </div>
+
+                            <div class="field full">
+                                <label for="phone">Phone Number</label>
+                                <div class="input-wrap">
+                                    <span class="input-icon"><i class="fas fa-phone"></i></span>
+                                    <input type="text" id="phone" name="phone" placeholder="Enter phone number" required>
+                                </div>
+                            </div>
+
+                            <div class="field full">
+                                <label for="donor-name">Donor Name</label>
+                                <div class="input-wrap">
+                                    <span class="input-icon"><i class="fas fa-user"></i></span>
+                                    <input type="text" id="donor-name" name="donor_name" value="{{ user_name }}" placeholder="Enter donor name" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="image-col">
+                            <label class="title">Food Image</label>
+                            <div class="dropzone" id="dropzone">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <strong id="dz-text">Click to upload image</strong>
+                                <span>or drag and drop</span>
+                                <small>JPG, PNG (Max 5MB)</small>
+                                <input type="file" id="food-image" accept="image/*" name="image" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Upload Donation <i class="fas fa-paper-plane"></i></button>
+                </form>
             </div>
-            <div class="input-group">
-                <label for="donation-date">Donation Date</label>
-                <input type="date" id="donation-date" name="expiry_date" required>
-            </div>
-            <div class="input-group">
-                <label for="category">Category</label>
-                <select id="category" name="category" required>
-                    <option value="Vegetarian">Vegetarian</option>
-                    <option value="Non-Vegetarian">Non-Vegetarian</option>
-                </select>
-            </div>
-            <div class="input-group">
-                <label for="location">Pickup Location</label>
-                <input type="text" id="location" name="pickup_location" placeholder="Enter pickup location" required>
-            </div>
-            <div class="input-group">
-                <label for="phone">Doner phone</label>
-                <input type="text" id="phone" name="phone" placeholder="Enter phone" required>
-            </div>
-            <div class="input-group">
-                <label for="food-image">Food Image</label>
-                <input type="file" id="food-image" accept="image/*" name="image" required>
-            </div>
-            <button type="submit" class="btn">Donate Food</button>
-        </form>        
+        </div>
     </div>
+</div>
 
+<script>
+    const fileInput = document.getElementById('food-image');
+    const dzText = document.getElementById('dz-text');
+    const dropzone = document.getElementById('dropzone');
+    fileInput.addEventListener('change', () => {
+        if (fileInput.files && fileInput.files[0]) {
+            dzText.textContent = fileInput.files[0].name;
+            dropzone.classList.add('has-file');
+        } else {
+            dzText.textContent = 'Click to upload image';
+            dropzone.classList.remove('has-file');
+        }
+    });
+</script>
 </body>
 </html>
