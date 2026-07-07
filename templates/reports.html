@@ -1,32 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>D-FOOD | Reports</title>
-  <style>
-    :root{--maroon:#6B1F1F;--brown:#8B5E3C;--cream:#FFF8F0;--gold:#C9A227;--white:#fff;--text:#2d211d;--muted:#6f5849}
-    *{box-sizing:border-box;font-family:Inter,Segoe UI,sans-serif} body{margin:0;background:var(--cream);color:var(--text)}
-    .wrap{max-width:1100px;margin:0 auto;padding:24px}.card{background:var(--white);border-radius:24px;padding:24px;box-shadow:0 10px 30px rgba(0,0,0,.06);margin-bottom:18px}
-    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.stat{padding:18px;border-radius:18px;background:#fdf1e3}.stat strong{display:block;font-size:1.8rem;color:var(--maroon)}
-    a{color:var(--maroon);font-weight:700;text-decoration:none}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reports | D-FOOD</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+    :root { --maroon:#6B1F1F; --maroon-dark:#4E1515; --brown:#8B5E3C; --cream:#FFF8F0; --gold:#C9A227; --white:#fff; --text:#2d211d; --muted:#6f5849; --border:rgba(107,31,31,0.10); --shadow:0 20px 45px rgba(107,31,31,0.12); }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family:Inter,'Segoe UI',sans-serif; background:var(--cream); color:var(--text); }
+    a { text-decoration:none; color:inherit; }
+    .layout { display:flex; min-height:100vh; }
+    .sidebar { width:250px; flex-shrink:0; background:linear-gradient(180deg,var(--maroon) 0%,var(--maroon-dark) 100%); color:#fff; display:flex; flex-direction:column; padding:28px 20px; }
+    .side-logo { display:flex; flex-direction:column; align-items:center; text-align:center; margin-bottom:26px; }
+    .side-logo img { width:50px; height:50px; object-fit:contain; margin-bottom:8px; }
+    .side-logo .name { font-weight:800; font-size:1.25rem; color:var(--gold); }
+    .side-logo .tag { font-size:0.66rem; opacity:0.85; letter-spacing:0.06em; margin-top:2px; }
+    .side-nav { display:flex; flex-direction:column; gap:5px; }
+    .side-nav a { display:flex; align-items:center; gap:12px; padding:11px 14px; border-radius:12px; font-weight:600; font-size:0.92rem; color:rgba(255,255,255,0.9); transition:background .2s, transform .2s; }
+    .side-nav a i { width:18px; text-align:center; }
+    .side-nav a:hover { background:rgba(255,255,255,0.08); transform:translateX(2px); }
+    .side-nav a.active { background:var(--white); color:var(--maroon); box-shadow:0 8px 18px rgba(0,0,0,0.18); }
+    .side-nav a.active i { color:var(--maroon); }
+    .main { flex:1; min-width:0; }
+    .topbar { display:flex; align-items:center; justify-content:space-between; padding:22px 34px; background:rgba(255,248,240,0.9); border-bottom:1px solid var(--border); }
+    .topbar h2 { margin:0; color:var(--maroon); font-size:1.15rem; }
+    .topbar p { margin:2px 0 0; color:var(--muted); font-size:0.9rem; }
+    .avatar { width:42px; height:42px; border-radius:50%; background:var(--maroon); color:#fff; display:flex; align-items:center; justify-content:center; box-shadow:var(--shadow); }
+    .content { padding:34px; max-width:1100px; margin:0 auto; }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }
+    .stats-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:22px; }
+    .stat { background:var(--white); border:1px solid var(--border); border-radius:20px; padding:24px; box-shadow:var(--shadow); text-align:center; animation:fadeUp .5s ease both; transition:transform .2s ease; }
+    .stat:hover { transform:translateY(-4px); }
+    .stat:nth-child(2){animation-delay:.05s}.stat:nth-child(3){animation-delay:.1s}.stat:nth-child(4){animation-delay:.15s}.stat:nth-child(5){animation-delay:.2s}.stat:nth-child(6){animation-delay:.25s}
+    .stat .icon { width:52px; height:52px; border-radius:50%; background:#f6ecd9; color:var(--maroon); display:flex; align-items:center; justify-content:center; font-size:1.2rem; margin:0 auto 14px; }
+    .stat strong { display:block; font-size:2rem; color:var(--maroon); }
+    .stat span { color:var(--muted); font-size:0.88rem; font-weight:600; }
+    .back-link { display:inline-flex; align-items:center; gap:8px; margin-top:26px; color:var(--maroon); font-weight:700; }
+    @media (max-width:820px){ .stats-grid{grid-template-columns:1fr 1fr} .layout{flex-direction:column} .sidebar{width:100%} }
+</style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="card">
-      <h2>D-FOOD Reports</h2>
-      <p>Professional summaries to help the admin monitor donation activity.</p>
+<div class="layout">
+    <aside class="sidebar">
+        <div class="side-logo">
+            <img src="{{ url_for('static', filename='imagess/d-food_logo1.png') }}" alt="D-FOOD Logo">
+            <div class="name">D-FOOD</div>
+            <div class="tag">ADMIN CONTROL CENTER</div>
+        </div>
+        <nav class="side-nav">
+            <a href="/admin_dashboard#overview"><i class="fas fa-gauge-high"></i> Dashboard</a>
+            <a href="/admin_dashboard#donors"><i class="fas fa-handshake"></i> Donors</a>
+            <a href="/admin_dashboard#receivers"><i class="fas fa-users"></i> Receivers</a>
+            <a href="/admin_dashboard#donations"><i class="fas fa-bowl-food"></i> Food Donations</a>
+            <a href="/admin_dashboard#requests"><i class="fas fa-clipboard-list"></i> Food Requests</a>
+            <a href="/reports" class="active"><i class="fas fa-chart-line"></i> Reports</a>
+            <a href="/logout"><i class="fas fa-power-off"></i> Logout</a>
+        </nav>
+    </aside>
+    <div class="main">
+        <div class="topbar">
+            <div><h2>D-FOOD Reports</h2><p>Professional summaries to monitor donation activity.</p></div>
+            <div class="avatar"><i class="fas fa-user-shield"></i></div>
+        </div>
+        <div class="content">
+            <div class="stats-grid">
+                <div class="stat"><div class="icon"><i class="fas fa-calendar-day"></i></div><strong>{{ daily }}</strong><span>Daily Requests</span></div>
+                <div class="stat"><div class="icon"><i class="fas fa-calendar-week"></i></div><strong>{{ weekly }}</strong><span>Weekly Requests</span></div>
+                <div class="stat"><div class="icon"><i class="fas fa-calendar"></i></div><strong>{{ monthly }}</strong><span>Monthly Requests</span></div>
+                <div class="stat"><div class="icon"><i class="fas fa-bowl-food"></i></div><strong>{{ donation_count }}</strong><span>Donation Report</span></div>
+                <div class="stat"><div class="icon"><i class="fas fa-users"></i></div><strong>{{ receiver_count }}</strong><span>Receiver Report</span></div>
+                <div class="stat"><div class="icon"><i class="fas fa-chart-simple"></i></div><strong>{{ donation_count }}</strong><span>Overall Activity</span></div>
+            </div>
+            <a class="back-link" href="/admin_dashboard"><i class="fas fa-arrow-left"></i> Back to dashboard</a>
+        </div>
     </div>
-    <div class="grid">
-      <div class="stat"><strong>{{ daily }}</strong><span>Daily Requests</span></div>
-      <div class="stat"><strong>{{ weekly }}</strong><span>Weekly Requests</span></div>
-      <div class="stat"><strong>{{ monthly }}</strong><span>Monthly Requests</span></div>
-      <div class="stat"><strong>{{ donation_count }}</strong><span>Donation Report</span></div>
-      <div class="stat"><strong>{{ receiver_count }}</strong><span>Receiver Report</span></div>
-      <div class="stat"><strong>{{ donation_count }}</strong><span>Overall Activity</span></div>
-    </div>
-    <div class="card"><a href="/admin_dashboard">← Back to dashboard</a></div>
-  </div>
+</div>
 </body>
 </html>
